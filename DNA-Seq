@@ -1,0 +1,55 @@
+#Let's create a program that generates a random DNA sequence,
+# calculates its GC content,
+# and plots a histogram of nucleotide frequencies using numpy and matplotlib.
+#1)Random DNA Generator.
+import random
+
+def random_dna_generator(lenght):
+    base = 'ATGC'
+    random_dna_sequence = ''.join(random.choice(base) for _ in range(lenght))
+    return random_dna_sequence
+
+random_dna_sequence = random_dna_generator(25)
+
+print("your random DNA Sequence:", random_dna_sequence)
+
+#2) GC % Calculation.
+#Rule = total GC / total nuc * 100
+dna = random_dna_sequence
+
+g_count= dna.count("G")
+c_count= dna.count("C")
+
+total_gc= g_count + c_count
+total_nucleotides = len(dna)
+
+gc_percent = (total_gc / total_nucleotides) * 100
+print("GC %:", gc_percent)
+
+#calculating the Nucleotide Frequency:
+#rule= Freq of x = (count of x / total nucleotides) * 100
+Frequency_A = (dna.count("A")  / len(dna)) * 100
+Frequency_C = (dna.count("C")  / len(dna)) * 100
+Frequency_G = (dna.count("G")  / len(dna)) * 100
+Frequency_T = (dna.count("T")  / len(dna)) * 100
+print(f"A: {Frequency_A}%, C: {Frequency_C}%, G: {Frequency_G}%, T: {Frequency_T}%")
+
+
+#3) Creating the graph.
+import numpy as np
+import matplotlib.pyplot as plt
+
+def plot_nucleotide_frequencies(dna_sequence):
+    nucleotides, counts = np.unique(list(dna_sequence), return_counts=True)
+
+    plt.bar(nucleotides, counts, color=['blue', 'green', 'red', 'yellow'])
+    plt.title("Nucleotide Frequencies")
+    plt.xlabel("Nucleotides")
+    plt.ylabel("Frequency")
+    plt.show()
+
+# Generate a random DNA sequence of length (number)
+random_sequence = random_dna_generator(100)
+
+# Plot the nucleotide frequencies
+plot_nucleotide_frequencies(random_sequence)
